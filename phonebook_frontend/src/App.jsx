@@ -35,21 +35,15 @@ const App = () => {
       personService
         .deleteById(id)
         .then(returnedPerson => {
-          console.log('delete success top')
           setErrorMessage({type:'notification',text:`delete person ${id} success`})
           setTimeout(() =>{
             setErrorMessage({type:null,text:null})
           },5000)
-          //! haven't to change value of persons directly 
-          //! just test => fix after 
-          // let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
-          // setPersons(updatedPersons)
-          setPersons(persons.filter(person => person.id !== returnedPerson.id))
-          // let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
-          // setSearchResults(updatedSearchResults)
-          setSearchResults(searchResults.filter(person => person.id !== returnedPerson.id))
-          
-          console.log('delete success bot')
+          //! BUG: display bug after delete (comps doesn't re-render)
+          let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
+          setPersons(updatedPersons)
+          let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
+          setSearchResults(updatedSearchResults)
         })
         .catch(err => {
           setErrorMessage({type:'error', text:`information of person ${id} has already been removed from server`})
