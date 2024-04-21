@@ -35,10 +35,14 @@ const App = () => {
       personService
         .deleteById(id)
         .then(returnedPerson => {
-          const updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
+          let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
           setPersons(updatedPersons)
-          const updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
+          let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
           setSearchResults(updatedSearchResults)
+          setErrorMessage({type:'notification',text:`delete person ${id} success`})
+          setTimeout(() =>{
+            setErrorMessage({type:null,text:null})
+          },5000)
         })
         .catch(err => {
           setErrorMessage({type:'error', text:`information of person ${id} has already been removed from server`})
@@ -61,6 +65,10 @@ const App = () => {
     let check = persons.some(person => person.number === checkedNumber)
     return check
   }
+  const generateId = () =>{
+    let maxId = Math.max(...persons.map(person => person.id))
+    return maxId + 1 
+  }
   const addNewPerson = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target)
@@ -70,6 +78,7 @@ const App = () => {
       //todo update person information
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one`)){
         const personObject = {
+          id: generateId(),
           name: newName,
           number: newNumber
         }
