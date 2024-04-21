@@ -40,12 +40,14 @@ const App = () => {
           setTimeout(() =>{
             setErrorMessage({type:null,text:null})
           },5000)
-          let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
-          setPersons(updatedPersons)
-          // setPersons(persons.filter(person => person.id !== returnedPerson.id))
-          let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
-          setSearchResults(updatedSearchResults)
-          // setSearchResults(searchResults.filter(person => person.id !== returnedPerson.id))
+          //! haven't to change value of persons directly 
+          //! just test => fix after 
+          // let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
+          // setPersons(updatedPersons)
+          setPersons(persons.filter(person => person.id !== returnedPerson.id))
+          // let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
+          // setSearchResults(updatedSearchResults)
+          setSearchResults(searchResults.filter(person => person.id !== returnedPerson.id))
           
           console.log('delete success bot')
         })
