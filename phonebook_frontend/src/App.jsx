@@ -26,7 +26,7 @@ const App = () => {
     //     setPersons(response.data)
     //     console.log(response.data)
     //   })
-  },[persons])
+  },[])
   // console.log('render',persons.length)
 
   const deletePerson = (id) => {
