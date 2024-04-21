@@ -26,7 +26,7 @@ const App = () => {
     //     setPersons(response.data)
     //     console.log(response.data)
     //   })
-  },[])
+  },[persons])
   // console.log('render',persons.length)
 
   const deletePerson = (id) => {
@@ -35,14 +35,19 @@ const App = () => {
       personService
         .deleteById(id)
         .then(returnedPerson => {
-          let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
-          setPersons(updatedPersons)
-          let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
-          setSearchResults(updatedSearchResults)
+          console.log('delete success top')
           setErrorMessage({type:'notification',text:`delete person ${id} success`})
           setTimeout(() =>{
             setErrorMessage({type:null,text:null})
           },5000)
+          let updatedPersons = persons.filter(person => person.id !== returnedPerson.id)
+          setPersons(updatedPersons)
+          // setPersons(persons.filter(person => person.id !== returnedPerson.id))
+          let updatedSearchResults = searchResults.filter(person => person.id !== returnedPerson.id)
+          setSearchResults(updatedSearchResults)
+          // setSearchResults(searchResults.filter(person => person.id !== returnedPerson.id))
+          
+          console.log('delete success bot')
         })
         .catch(err => {
           setErrorMessage({type:'error', text:`information of person ${id} has already been removed from server`})
