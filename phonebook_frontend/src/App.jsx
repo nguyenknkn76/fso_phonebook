@@ -3,7 +3,7 @@ import axios from 'axios'
 import personService from "./services/PersonService"
 import PersonForm from "./components/PersonForm"
 import Filter from "./components/FilterComponent"
-import Person from "./components/PersonComponent"
+import PersonComponent from "./components/PersonComponent"
 import Notification from "./components/NotificationComponent"
 
 const App = () => {
@@ -155,7 +155,7 @@ const App = () => {
       <h2>numbers</h2>
       <ul>
         {persons.map(person => 
-          <Person 
+          <PersonComponent
             key = {person.id} 
             person = {person} 
             deletePerson = {() => deletePerson(person.id)}
@@ -169,7 +169,7 @@ const App = () => {
 
       <ul>
         {searchResults.map(person => 
-          <Person 
+          <PersonComponent
             key = {person.id} 
             person = {person} 
             deletePerson = {() => deletePerson(person.id)}
