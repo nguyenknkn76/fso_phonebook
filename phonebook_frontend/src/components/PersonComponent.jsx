@@ -1,4 +1,4 @@
-const Person = ({person, deletePerson}) => {
+const PersonComponent = ({person, deletePerson}) => {
     return(
         <li>
           {person.id} : {person.name} : {person.number} 
@@ -7,4 +7,4 @@ const Person = ({person, deletePerson}) => {
     )
   }
   
-export default Person
+export default PersonComponent
