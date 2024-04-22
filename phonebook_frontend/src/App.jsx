@@ -114,6 +114,9 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+        .catch(err => {
+          console.log(err.response.data.error)
+        })
       // axios
       //   .post('http://localhost:3001/persons', personObject)
       //   .then(response => {

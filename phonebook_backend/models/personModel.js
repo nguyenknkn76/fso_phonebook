@@ -13,7 +13,12 @@ mongoose.connect(url)
     })
 
 const personMgSchema = new mongoose.Schema({
-    name: String,
+    // name: String,
+    name: {
+        type: String, 
+        minLength: 3,
+        required: true
+    },
     number: String
 })
 // const PersonMg = mongoose.model('Person', personMgSchema)

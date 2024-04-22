@@ -79,12 +79,12 @@ app.delete(`/api/persons/:id`,(req, res, next) =>{
 })
 
 app.put(`/api/persons/:id`, (req,res,next) => {
-    const body = req.body
-    const person = {
-        name: body.name,
-        number: body.number
-    }
-    PersonMg.findByIdAndUpdate(req.params.id, person, {new:true})
+const {name, number} = req.body
+    PersonMg.findByIdAndUpdate(
+        req.params.id, 
+        {name, number}, 
+        {new:true, runValidators: true, context:'query' }
+    )
         .then(updatedPerson => {
             res.json(updatedPerson)
         })
@@ -116,9 +116,11 @@ app.post(`/api/persons`, (req,res) => {
         name: reqName,
         number: reqNumber
     })
-    newPerson.save().then(savedPerson => {
-        res.json(savedPerson)
-    })
+    newPerson.save()
+        .then(savedPerson => {
+            res.json(savedPerson)
+        })
+        .catch(err => next(err))
 })
 
 const unknownEndpoint = (req, res) => {
@@ -128,8 +130,10 @@ app.use(unknownEndpoint)
 
 const errorHandler = (err, req, res, next) => {
     console.error(err.message)
-    if(err.name = 'CastError'){
+    if(err.name === 'CastError'){
         return res.status(400).send({error:'malformatted id'})
+    } else if (err.name === 'ValidationError'){
+        return res.status(400).json({error: err.message})
     }
     next(err)
 }
